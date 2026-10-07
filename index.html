@@ -143,6 +143,7 @@ body{
 .grid{
     display:flex;
     min-height:420px;
+    overflow-x:auto;   /* many sites -> scroll instead of crushing columns */
 }
 
 .time-rail{
@@ -152,8 +153,8 @@ body{
 }
 
 .site-col{
-    flex:1;
-    min-width:0;
+    flex:1 0 240px;    /* grow to fill when few sites, never shrink below 240px */
+    min-width:240px;
     border-right:1px solid var(--line);
     display:flex;
     flex-direction:column;
@@ -173,6 +174,7 @@ body{
     font-weight:bold;
     color:var(--ink);
     cursor:pointer;
+    overflow-wrap:anywhere;   /* long names wrap inside the column */
 }
 
 .site-title:hover{
@@ -671,6 +673,10 @@ body{
     text-align:center;
 }
 
+#monthWrap{
+    overflow-x:auto;   /* month table is wider than the page with many sites */
+}
+
 .month-table{
     border-collapse:collapse;
     width:100%;
@@ -747,9 +753,9 @@ body{
 .worker-chip:hover{ filter:brightness(1.1); }
 
 @media (max-width: 800px){
-    .grid{ flex-direction:column; }
+    .grid{ flex-direction:column; overflow-x:visible; }
     .time-rail{ display:none; }
-    .site-col{ border-right:none; border-bottom:1px solid var(--line); }
+    .site-col{ flex:1 1 auto; min-width:0; border-right:none; border-bottom:1px solid var(--line); }
 }
 
 </style>
